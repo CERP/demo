@@ -1,7 +1,9 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import "./index.css"
-import * as serviceWorker from "./serviceWorker"
+
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
+import reportWebVitals from "./reportWebVitals"
 import { applyMiddleware, AnyAction, createStore, Store } from "redux"
 import thunkMiddleware, { ThunkMiddleware } from "redux-thunk"
 import Syncr from "@cerp/syncr"
@@ -29,13 +31,11 @@ syncr.on("message", (msg: AnyAction) => store.dispatch(msg))
 const store: Store<RootReducerState> = createStore(
 	reducer,
 	initial_state,
-	applyMiddleware(
-		thunkMiddleware.withExtraArgument(syncr) as ThunkMiddleware<
-			RootReducerState,
-			AnyAction,
-			Syncr
-		>
-	)
+	applyMiddleware(thunkMiddleware.withExtraArgument(syncr) as ThunkMiddleware<
+		RootReducerState,
+		AnyAction,
+		Syncr
+	>)
 )
 
 loadDBAsync().then((val) => {
@@ -50,16 +50,25 @@ const saveBounce = debounce(() => {
 }, 500)
 
 store.subscribe(saveBounce as () => void)
-ReactDOM.render(<Routes store={store} />, document.getElementById("root"))
+ReactDOM.render(
+	<React.StrictMode>
+		<Routes store={store} />
+	</React.StrictMode>,
+	document.getElementById("root")
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register({
+
+serviceWorkerRegistration.register({
 	onUpdate: (registration: ServiceWorkerRegistration) => {
 		registration.installing &&
 			registration.installing.postMessage({
 				type: "SKIP_WAITING",
 			})
 	},
+	onSuccess: () => console.log("success"),
 })
+
+reportWebVitals()
