@@ -1,20 +1,20 @@
-import React, { useState } from "react"
-import { createLogin } from "actions"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from 'react'
+import { createLogin } from 'actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Login: React.FC = () => {
-	const [number, setNumber] = useState<string>("")
-	const [username, setUsername] = useState<string>("")
-	const [password, setPassword] = useState<string>("")
+	const [number, setNumber] = useState<string>('')
+	const [username, setUsername] = useState<string>('')
+	const [password, setPassword] = useState<string>('')
 
 	const { connected, auth } = useSelector((state: RootReducerState) => ({
 		connected: state.connected,
-		auth: state.auth,
+		auth: state.auth
 	}))
 	const dispatch = useDispatch()
 
 	const onSignIn = () => {
-		console.log("sign in: ", username, password)
+		console.log('sign in: ', username, password)
 		dispatch(createLogin(username, password, number))
 	}
 
@@ -34,8 +34,8 @@ const Login: React.FC = () => {
 						alt="Workflow"
 					/>
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-						{" "}
-						Sign in to your account{" "}
+						{' '}
+						Sign in to your account{' '}
 					</h2>
 					<p className="mt-2 text-center text-sm text-gray-600"></p>
 				</div>
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 								Username
 							</label>
 							<input
-								onChange={(e) => setUsername(e.target.value)}
+								onChange={e => setUsername(e.target.value)}
 								value={username}
 								id="username"
 								name="username"
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
 								Password
 							</label>
 							<input
-								onChange={(e) => setPassword(e.target.value)}
+								onChange={e => setPassword(e.target.value)}
 								value={password}
 								id="password"
 								name="password"
@@ -80,8 +80,8 @@ const Login: React.FC = () => {
 							<a
 								href="#"
 								className="font-medium text-indigo-600 hover:text-indigo-500">
-								{" "}
-								Forgot your password?{" "}
+								{' '}
+								Forgot your password?{' '}
 							</a>
 						</div>
 					</div>

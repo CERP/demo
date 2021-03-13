@@ -1,4 +1,4 @@
-import Dynamic from "@cerp/dynamic"
+import Dynamic from '@cerp/dynamic'
 
 import {
 	MERGES,
@@ -13,10 +13,10 @@ import {
 	ConfirmSyncAction,
 	SnapshotDiffAction,
 	SNAPSHOT_DIFF,
-	LOAD_ASYNC,
-} from "../actions/core"
-import { AnyAction, Reducer } from "redux"
-import { loadDBSync } from "../utils/storage"
+	LOAD_ASYNC
+} from '../actions/core'
+import { AnyAction, Reducer } from 'redux'
+import { loadDBSync } from '../utils/storage'
 
 const rootReducer: Reducer<RootReducerState, AnyAction> = (
 	state: RootReducerState | undefined,
@@ -33,43 +33,36 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 		case ON_CONNECT: {
 			return {
 				...state,
-				connected: true,
+				connected: true
 			}
 		}
 
 		case ON_DISCONNECT: {
 			return {
 				...state,
-				connected: false,
+				connected: false
 			}
 		}
 
 		case MERGES: {
-			const nextState = (action as MergeAction).merges.reduce(
-				(agg, curr) => {
-					return Dynamic.put(agg, curr.path, curr.value)
-				},
-				JSON.parse(JSON.stringify(state))
-			)
+			const nextState = (action as MergeAction).merges.reduce((agg, curr) => {
+				return Dynamic.put(agg, curr.path, curr.value)
+			}, JSON.parse(JSON.stringify(state)))
 
 			return {
 				...nextState,
-				accept_snapshot: false,
+				accept_snapshot: false
 			}
 		}
 
 		case DELETES: {
-			const state_copy = JSON.parse(
-				JSON.stringify(state)
-			) as RootReducerState
+			const state_copy = JSON.parse(JSON.stringify(state)) as RootReducerState
 
-			;(action as DeletesAction).paths.forEach((a) =>
-				Dynamic.delete(state_copy, a.path)
-			)
+			;(action as DeletesAction).paths.forEach(a => Dynamic.delete(state_copy, a.path))
 
 			return {
 				...state_copy,
-				accept_snapshot: false,
+				accept_snapshot: false
 			}
 		}
 
@@ -78,8 +71,8 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 				...state,
 				queued: {
 					...state.queued,
-					...(action as QueueAction).payload,
-				},
+					...(action as QueueAction).payload
+				}
 			}
 		}
 
@@ -87,7 +80,7 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 			const payload: Partial<RootReducerState> = action.payload
 			return {
 				...state,
-				...payload,
+				...payload
 			}
 		}
 
@@ -95,13 +88,13 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 			const diff_action = action as ConfirmSyncAction
 
 			console.log(
-				"confirm sync diff: ",
+				'confirm sync diff: ',
 				Object.keys(diff_action.new_writes).length,
-				"changes synced"
+				'changes synced'
 			)
 
 			const newQ = Object.keys(state.queued)
-				.filter((t) => {
+				.filter(t => {
 					console.log(
 						state.queued[t].date,
 						diff_action.date,
@@ -112,27 +105,24 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 				.reduce((agg, curr) => {
 					return Dynamic.put(
 						agg,
-						["queued", state.queued[curr].action.path],
+						['queued', state.queued[curr].action.path],
 						state.queued[curr].action
 					)
 				}, {})
 
 			if (Object.keys(diff_action.new_writes).length > 0) {
-				const nextState = Object.values(diff_action.new_writes).reduce(
-					(agg, curr) => {
-						if (curr.type === "DELETE") {
-							return Dynamic.delete(agg, curr.path)
-						}
-						return Dynamic.put(agg, curr.path, curr.value)
-					},
-					JSON.parse(JSON.stringify(state))
-				)
+				const nextState = Object.values(diff_action.new_writes).reduce((agg, curr) => {
+					if (curr.type === 'DELETE') {
+						return Dynamic.delete(agg, curr.path)
+					}
+					return Dynamic.put(agg, curr.path, curr.value)
+				}, JSON.parse(JSON.stringify(state)))
 
 				return {
 					...nextState,
 					queued: newQ,
 					accept_snapshot: true,
-					last_snapshot: new Date().getTime(),
+					last_snapshot: new Date().getTime()
 				}
 			}
 
@@ -140,7 +130,7 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 				...state,
 				queued: newQ,
 				accept_snapshot: true,
-				last_snapshot: new Date().getTime(),
+				last_snapshot: new Date().getTime()
 			}
 		}
 
@@ -148,9 +138,9 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 			//@ts-ignore
 			const snapshot = action as SnapshotDiffAction
 			console.log(
-				"snapshot diff: ",
+				'snapshot diff: ',
 				Object.keys(snapshot.new_writes).length,
-				"changes broadcast"
+				'changes broadcast'
 			)
 
 			if (!state.accept_snapshot) {
@@ -158,25 +148,22 @@ const rootReducer: Reducer<RootReducerState, AnyAction> = (
 			}
 
 			if (Object.keys(snapshot.new_writes).length > 0) {
-				const nextState = Object.values(snapshot.new_writes).reduce(
-					(agg, curr) => {
-						if (curr.type === "DELETE") {
-							return Dynamic.delete(agg, curr.path)
-						}
-						return Dynamic.put(agg, curr.path, curr.value)
-					},
-					JSON.parse(JSON.stringify(state))
-				) as RootReducerState
+				const nextState = Object.values(snapshot.new_writes).reduce((agg, curr) => {
+					if (curr.type === 'DELETE') {
+						return Dynamic.delete(agg, curr.path)
+					}
+					return Dynamic.put(agg, curr.path, curr.value)
+				}, JSON.parse(JSON.stringify(state))) as RootReducerState
 
 				return {
 					...nextState,
-					last_snapshot: new Date().getTime(),
+					last_snapshot: new Date().getTime()
 				}
 			}
 
 			return {
 				...state,
-				last_snapshot: new Date().getTime(),
+				last_snapshot: new Date().getTime()
 			}
 		}
 

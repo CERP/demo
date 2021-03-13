@@ -1,11 +1,11 @@
-import React, { useState } from "react"
-import { Route, Link } from "react-router-dom"
-import Dashboard from "pages/dashboard"
-import Input from "pages/input"
+import React, { useState } from 'react'
+import { Route, Link } from 'react-router-dom'
+import Dashboard from 'pages/dashboard'
+import Input from 'pages/input'
 
 type Props = {}
 
-const StackedLayout: React.FC<Props> = (props) => {
+const StackedLayout: React.FC<Props> = props => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 	const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
 
@@ -18,18 +18,17 @@ const StackedLayout: React.FC<Props> = (props) => {
 	}
 
 	// hack, just for example
-	const loc = window.location.pathname.split("/").slice(-1).pop()
+	const loc = window.location.pathname.split('/').slice(-1).pop()
 	console.log(loc)
 
-	const desktop_active_tab =
-		"bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+	const desktop_active_tab = 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
 	const desktop_inactive_tab =
-		"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+		'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
 
 	const mobile_active_tab =
-		"bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+		'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium'
 	const mobile_inactive_tab =
-		"text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+		'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
 
 	return (
 		<div>
@@ -51,7 +50,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 								<Link
 									to="/stacked/dashboard"
 									className={
-										loc === "dashboard"
+										loc === 'dashboard'
 											? desktop_active_tab
 											: desktop_inactive_tab
 									}>
@@ -60,9 +59,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 								<Link
 									to="/stacked/input"
 									className={
-										loc === "input"
-											? desktop_active_tab
-											: desktop_inactive_tab
+										loc === 'input' ? desktop_active_tab : desktop_inactive_tab
 									}>
 									Input
 								</Link>
@@ -71,9 +68,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 						<div className="hidden md:block">
 							<div className="ml-4 flex items-center md:ml-6">
 								<button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-									<span className="sr-only">
-										View notifications
-									</span>
+									<span className="sr-only">View notifications</span>
 									<svg
 										className="h-6 w-6"
 										xmlns="http://www.w3.org/2000/svg"
@@ -98,9 +93,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 											className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 											id="user-menu"
 											aria-haspopup="true">
-											<span className="sr-only">
-												Open user menu
-											</span>
+											<span className="sr-only">Open user menu</span>
 											<img
 												className="h-8 w-8 rounded-full"
 												src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -109,9 +102,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 									</div>
 									<div
 										className={`${
-											profileDropdownOpen
-												? "block"
-												: "hidden"
+											profileDropdownOpen ? 'block' : 'hidden'
 										} origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
 										role="menu"
 										aria-orientation="vertical"
@@ -145,9 +136,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 								className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
 								<span className="sr-only">Open main menu</span>
 								<svg
-									className={`${
-										mobileMenuOpen ? "hidden" : "block"
-									} h-6 w-6`}
+									className={`${mobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
@@ -161,9 +150,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 									/>
 								</svg>
 								<svg
-									className={`${
-										mobileMenuOpen ? "block" : "hidden"
-									} h-6 w-6`}
+									className={`${mobileMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
@@ -182,27 +169,18 @@ const StackedLayout: React.FC<Props> = (props) => {
 				</div>
 
 				{/* mobile menu dropdown */}
-				<div
-					className={`${
-						mobileMenuOpen ? "block" : "hidden"
-					} md:hidden`}>
+				<div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden`}>
 					<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 						<Link
 							to="/stacked/dashboard"
 							className={
-								loc === "dashboard"
-									? mobile_active_tab
-									: mobile_inactive_tab
+								loc === 'dashboard' ? mobile_active_tab : mobile_inactive_tab
 							}>
 							Dashboard
 						</Link>
 						<Link
 							to="/stacked/input"
-							className={
-								loc === "input"
-									? mobile_active_tab
-									: mobile_inactive_tab
-							}>
+							className={loc === 'input' ? mobile_active_tab : mobile_inactive_tab}>
 							Input
 						</Link>
 					</div>
@@ -225,9 +203,7 @@ const StackedLayout: React.FC<Props> = (props) => {
 								</div>
 							</div>
 							<button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-								<span className="sr-only">
-									View notifications
-								</span>
+								<span className="sr-only">View notifications</span>
 								<svg
 									className="h-6 w-6"
 									xmlns="http://www.w3.org/2000/svg"

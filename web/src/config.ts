@@ -1,4 +1,4 @@
-const debug_url = "localhost:8080"
+const debug_url = 'localhost:8080'
 
 export function get_host(): string {
 	// @ts-ignore
