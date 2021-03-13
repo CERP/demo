@@ -6,30 +6,29 @@
 		"@cerp/dynamic": "^1.0.12",
 		"@cerp/former": "^1.0.1",
 		"@cerp/syncr": "^1.1.2",
-		"@craco/craco": "^6.0.0",
+		"@headlessui/react": "^0.3.1",
 		"@ironbay/dynamic": "^2.0.0",
-		"autoprefixer": "^9.8.6",
+		"clsx": "^1.1.1",
 		"idb": "^5.0.4",
 		"idb-keyval": "^3.2.0",
 		"moment": "^2.27.0",
-		"postcss": "^7.0.35",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
+		"react-hot-toast": "^1.0.2",
 		"react-redux": "^7.2.2",
 		"react-router": "^5.2.0",
 		"react-router-dom": "^5.2.0",
-		"react-scripts": "^4.0.1",
-		"redux": "^4.0.5",
+		"react-scripts": "^4.0.3",
 		"redux-thunk": "^2.3.0",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
-		"uuid": "^8.3.0",
-		"web-vitals": "^1.1.0"
+		"uuid": "^8.3.0"
 	},
 	"scripts": {
-		"start": "export HTTPS=true && craco start",
-		"build": "craco build && cat sw-config.js >> ./build/service-worker.js",
-		"test": "craco test",
-		"eject": "react-scripts eject"
+		"start": "export HTTPS=true && npm run watch:css && react-scripts start",
+		"build": "npm run build:css && react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
+		"watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -41,20 +40,25 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
-		"@types/jest": "^26.0.10",
 		"@types/node": "^14.6.2",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
 		"@types/react-redux": "^7.1.9",
 		"@types/react-router": "^5.1.8",
 		"@types/react-router-dom": "^5.1.5",
-		"@types/redux": "^3.6.0",
 		"@types/uuid": "^8.3.0",
-		"@typescript-eslint/eslint-plugin": "^4.10.0",
-		"@typescript-eslint/parser": "^4.10.0",
-		"eslint": "^7.18.0",
-		"eslint-config-prettier": "^7.0.0",
-		"prettier": "^2.2.1",
-		"typescript": "^4.1.2"
+		"@typescript-eslint/eslint-plugin": "^4.17.0",
+		"@typescript-eslint/parser": "^4.17.0",
+		"autoprefixer": "^10.2.5",
+		"eslint": "^7.22.0",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-prettier": "^3.3.1",
+		"eslint-plugin-react": "^7.22.0",
+		"postcss": "^8.2.8",
+		"postcss-cli": "^8.3.1",
+		"prettier": "2.2.1",
+		"tailwindcss": "^2.0.3",
+		"typescript": "^4.2.3",
+		"web-vitals": "^1.1.0"
 	}
 }

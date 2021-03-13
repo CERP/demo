@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import "./index.css"
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import reportWebVitals from "./reportWebVitals"
@@ -16,6 +15,9 @@ import debounce from "utils/debounce"
 import { get_host } from "config"
 
 import { connected, disconnected, LoadAsyncAction } from "actions/core"
+
+import 'styles/helper.css'
+import 'styles/main.css'
 
 const host = get_host()
 
