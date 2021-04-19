@@ -4,13 +4,15 @@
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<!-- TODO: fix this <script async src={'https://www.googletagmanager.com/gtag/js?id=' + window.ga_id} ></script> -->
 		<script>
-			window.dataLayer = window.dataLayer || []
-			function gtag() {
-				dataLayer.push(arguments)
+			if(window.location.hostname !== 'localhost') {
+				window.dataLayer = window.dataLayer || []
+				function gtag() {
+					dataLayer.push(arguments)
+				}
+				gtag('js', new Date())
+				gtag('config', window.ga_id)
+				gtag('set', 'dimension1', 'online')
 			}
-			gtag('js', new Date())
-			gtag('config', window.ga_id)
-			gtag('set', 'dimension1', 'online')
 		</script>
 		<meta charset="utf-8" />
 		<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
