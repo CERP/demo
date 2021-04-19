@@ -6,8 +6,9 @@
 		"@cerp/dynamic": "^1.0.12",
 		"@cerp/former": "^1.0.1",
 		"@cerp/syncr": "^1.1.2",
-		"@headlessui/react": "^0.3.1",
+		"@headlessui/react": "^1.0.0",
 		"@ironbay/dynamic": "^2.0.0",
+		"@tailwindcss/forms": "^0.3.2",
 		"clsx": "^1.1.1",
 		"idb": "^5.0.4",
 		"idb-keyval": "^3.2.0",
@@ -57,7 +58,7 @@
 		"postcss": "^8.2.8",
 		"postcss-cli": "^8.3.1",
 		"prettier": "2.2.1",
-		"tailwindcss": "^2.0.3",
+		"tailwindcss": "^2.1.1",
 		"typescript": "^4.2.3",
 		"web-vitals": "^1.1.0"
 	}
