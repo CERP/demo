@@ -1,15 +1,15 @@
-import * as React from "react"
-import { Provider } from "react-redux"
-import { BrowserRouter, Route, Switch } from "react-router-dom"
-import { Store } from "redux"
-import { connect } from "react-redux"
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Store } from 'redux'
+import { connect } from 'react-redux'
 
-import ErrorComponent from "components/Error"
+import ErrorComponent from 'components/Error'
 
-import StackedLayout from "./pages/StackedLayout"
-import InputPage from "./pages/input"
-import Login from "./pages/Login"
-import { submitError } from "actions/core"
+import StackedLayout from './pages/StackedLayout'
+import InputPage from './pages/input'
+import Login from './pages/Login'
+import { submitError } from 'actions/core'
 
 interface P {
 	store: Store
@@ -28,7 +28,7 @@ class Routes extends React.Component<P, S> {
 		super(props)
 
 		this.state = {
-			error: undefined,
+			error: undefined
 		}
 	}
 
@@ -38,8 +38,8 @@ class Routes extends React.Component<P, S> {
 		this.setState({
 			error: {
 				err,
-				errInfo,
-			},
+				errInfo
+			}
 		})
 	}
 
@@ -48,10 +48,7 @@ class Routes extends React.Component<P, S> {
 
 		if (this.state.error) {
 			return (
-				<ErrorComponent
-					error={this.state.error.err}
-					errInfo={this.state.error.errInfo}
-				/>
+				<ErrorComponent error={this.state.error.err} errInfo={this.state.error.errInfo} />
 			)
 		}
 
@@ -72,7 +69,6 @@ class Routes extends React.Component<P, S> {
 export default connect(
 	(state: RootReducerState) => ({}),
 	(dispatch: Function) => ({
-		sendError: (err: Error, errInfo: React.ErrorInfo) =>
-			dispatch(submitError(err, errInfo)),
+		sendError: (err: Error, errInfo: React.ErrorInfo) => dispatch(submitError(err, errInfo))
 	})
 )(Routes)

@@ -5,7 +5,7 @@ interface RootReducerState {
 	auth: {
 		id?: string
 		token?: string
-		client_type: "tech_demo"
+		client_type: 'tech_demo'
 	}
 	client_id: string
 	queued: {
@@ -13,7 +13,7 @@ interface RootReducerState {
 			action: {
 				path: string[]
 				value?: any
-				type: "MERGE" | "DELETE"
+				type: 'MERGE' | 'DELETE'
 			}
 			date: number
 		}
